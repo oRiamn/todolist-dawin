@@ -7,8 +7,10 @@
 <title>Todolist</title>
 </head>
 <body>
+<form method="post" action=".">
  	<c:forEach items="${tasks}" var="task">
-     	<div>${task.name} - ${task.status.name}</div>
+     	<div>${task.name} - ${task.status.name} - <button name="toggleTask" value="${task.id}">Terminer?</button></div>
 	 </c:forEach>
+</form>
 </body>
 </html>

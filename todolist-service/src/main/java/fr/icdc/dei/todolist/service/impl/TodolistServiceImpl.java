@@ -1,6 +1,7 @@
 package fr.icdc.dei.todolist.service.impl;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,5 +82,21 @@ public class TodolistServiceImpl implements TodolistService {
 	@Override
 	public List<TaskStatus> listTaskStatus() {
 		return taskStatusDao.findAll();
+	}
+
+	@Override
+	public Task finishTask(long idTask) {
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.WEEK_OF_YEAR, -1);
+		
+		Task task = taskDao.findOne(idTask);
+		Date taskDate = task.getClosedDate();
+		
+		if(taskDate != null && taskDate.before(cal.getTime())){
+			task.setStatus(new TaskStatus(TaskStatusEnum.FINISHED.getValue()));
+		}
+		
+		
+		return taskDao.save(task);
 	}
 }

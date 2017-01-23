@@ -25,6 +25,14 @@ public class TodolistController {
 		return page;
 	}
 	
+	@RequestMapping(method=RequestMethod.POST)
+	public ModelAndView finishTask(@RequestParam("toggleTask") long taskId) {
+		todolistService.finishTask(taskId);
+		ModelAndView page = new ModelAndView("Home");
+		page.addObject(TASKS_HTTP_ATTR, todolistService.listTasks());
+		return page;
+	}
+	
 	@RequestMapping(value = "create", method=RequestMethod.GET)
 	public ModelAndView renderCreateTaskForm() {
 		ModelAndView page = new ModelAndView("TaskForm");

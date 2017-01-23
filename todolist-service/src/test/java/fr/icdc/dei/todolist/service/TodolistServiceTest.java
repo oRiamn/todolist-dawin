@@ -12,12 +12,18 @@ import fr.icdc.dei.todolist.persistence.entity.Task;
 import fr.icdc.dei.todolist.persistence.entity.User;
 import fr.icdc.dei.todolist.service.enums.TaskStatusEnum;
 
+import static org.junit.Assert.assertNotEquals;
+
+
 public class TodolistServiceTest extends AbstractServiceTest {
 	
 	private static final long TASK_TO_AFFECT_ID = 1L;
+	private static final long TASK_FINISHED_ID =  3L;
+	private static final long TASK_UGLY_FINISHED_ID = 4L; // LOL	
 	private static final long DELEGATED_TASK_ID = 2L;
 	private static final long USER_ID = 1L;
 	private static final long DELEGATE_USER_ID = 2L;
+
 	
 	private static User user = new User();
 	private static Task task = new Task();
@@ -43,7 +49,7 @@ public class TodolistServiceTest extends AbstractServiceTest {
 	
 	@Test
 	public void testAffectTaskToAnotherUserGotPendingStatus() {
-		assertEquals(todolistService.affectTaskToUser(task.getId() , user.getId()).getStatus().getId(), TaskStatusEnum.DELEGATION_PENDING.getValue());
+		assertEquals(todolistService.affectTaskToUser(task.getId(), user.getId()).getStatus().getId(), TaskStatusEnum.DELEGATION_PENDING.getValue());
 	}
 	
 	@Test
@@ -59,6 +65,16 @@ public class TodolistServiceTest extends AbstractServiceTest {
 	@Test
 	public void testListTaskStatus() {
 		assertTrue(CollectionUtils.isNotEmpty(todolistService.listTaskStatus()));
+	}
+	
+	@Test
+	public void testFinishTaskWorks() {	
+		assertEquals(todolistService.finishTask(TASK_FINISHED_ID).getStatus().getId(), TaskStatusEnum.FINISHED.getValue());
+	}
+	
+	@Test
+	public void testFinishTaskWorksBeforeOneWeek() {			
+		assertNotEquals(todolistService.finishTask(TASK_UGLY_FINISHED_ID).getStatus().getId(), TaskStatusEnum.FINISHED.getValue());
 	}
 
 }

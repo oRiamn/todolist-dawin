@@ -8,7 +8,8 @@ INSERT INTO tasks_status(name) VALUES ('DELEGATED');
 -- TASKS
 INSERT INTO tasks(name, id_task_status, closedDate) VALUES ('Hikingyo', 1, NULL);
 INSERT INTO tasks(name, id_task_status, closedDate) VALUES ('StartedTask', 1, NULL);
-INSERT INTO tasks(name, id_task_status, closedDate) VALUES ('FinishedTask', 2, DATE '2016-8-10');
+INSERT INTO tasks(name, id_task_status, closedDate) VALUES ('FinishedTask', 3, DATE '2016-8-10');
+INSERT INTO tasks(name, id_task_status, closedDate) VALUES ('UglyFinishedTask', 1, DATE '2018-8-10');
 
 -- USERS
 INSERT INTO users(name) VALUES('userTest');
